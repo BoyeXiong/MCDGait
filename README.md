@@ -1,6 +1,7 @@
 # MCDGait
 Multimodal Co-Learning with Spatial-Temporal Graph Reasoning for Gait Recognition in the Wild
 
+The code will be open-sourced after the article is accepted！！！！！
 
 ## Requirements
 - pytorch >= 1.6
@@ -19,8 +20,8 @@ You can replace the second command from the bottom to install
 based on your CUDA version.
 
 ```
-git clone // 设置的github地址
-cd // 文件名称
+git clone https://github.com/BoyeXiong/MCDGait
+cd MCDGait
 conda create --name py37torch160 python=3.7
 conda activate py37torch160
 conda install pytorch==1.6.0 torchvision==0.7.0 cudatoolkit=10.2 -c pytorch
