@@ -1,0 +1,103 @@
+data_cfg:
+  dataset_name: Gait3D
+  dataset_partition: ./misc/partitions/Gait3D.json
+  dataset_root:
+    silhouette_root: /8T/xiongjianbo/dataset/Gait3D-pkls/Gait3D-sils-64-44-pkl
+    smpl_root: /8T/xiongjianbo/dataset/Gait3D-pkls/Gait3D_ske_pkl
+  num_workers: 16
+  remove_no_gallery: false
+  test_dataset_name: Gait3D-64pixel
+
+evaluator_cfg:
+  enable_float16: false
+  eval_func: evaluation_Gait3D
+  metric: euc
+  restore_ckpt_strict: true
+  restore_hint: 120000
+  sampler:
+    batch_shuffle: false
+    batch_size: 2
+    frames_all_limit: 720
+    plus_smpl: true
+    sample_type: all_ordered
+  save_name: MCDGaitp
+  transform:
+  - type: BaseSilTransform
+
+loss_cfg:
+- log_prefix: triplet
+  loss_term_weight: 1.0
+  margin: 0.2
+  type: TripletLoss
+  work_iteration: 0
+- log_prefix: triplet_sil
+  loss_term_weight: 1.0
+  margin: 0.2
+  type: TripletLoss
+  work_iteration: 0
+- log_prefix: triplet_ske
+  loss_term_weight: 1.0
+  margin: 0.2
+  type: TripletLoss
+  work_iteration: 0
+- log_prefix: ctl_sil
+  loss_term_weight: 0.5
+  type: CTL_Loss
+- log_prefix: ctl_ske
+  loss_term_weight: 0.5
+  type: CTL_Loss
+
+model_cfg:
+  tta: true
+  class_num: 3000
+  edge_importance_weighting: true
+  hidden_dim: 256
+  img_channals:
+  - 1
+  - 32
+  - 64
+  - 128
+  - 256
+  model: MCDGaitp
+  part_img: 16
+  part_ske: 17
+  ske_channals:
+  - 3
+  - 32
+  - 64
+  - 128
+  - 256
+optimizer_cfg:
+  lr: 0.0001
+  momentum: 0.9
+  solver: Adam
+  weight_decay: 0
+scheduler_cfg:
+  gamma: 0.1
+  milestones:
+  - 30000
+  - 60000
+  scheduler: MultiStepLR
+
+trainer_cfg:
+  enable_float16: true
+  fix_BN: false
+  log_iter: 100
+  restore_ckpt_strict: true
+  restore_hint: 0
+  sampler:
+    batch_shuffle: true
+    batch_size:
+    - 32
+    - 4
+    frames_num_fixed: 60
+    frames_skip_num: 0
+    plus_smpl: true
+    sample_type: fixed_unordered
+    type: TripletSampler
+  save_iter: 10000
+  save_name: MCDGaitp
+  sync_BN: true
+  total_iter: 120000
+  transform:
+  - type: BaseSilTransform
