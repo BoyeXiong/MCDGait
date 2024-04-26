@@ -1,7 +1,7 @@
 # MCDGait
-Multimodal Co-Learning with Spatial-Temporal Graph Reasoning for Gait Recognition in the Wild
+MCDGait: Multimodal Co-Learning Distillation Network with Spatial-Temporal Graph Reasoning for Gait Recognition in the Wild
 
-The article has been submitted to "the visual computer", and the code will be uploaded after the article is accepted!
+The paper has been accepted by "The Visual Computer"!
 
 ## Requirements
 - pytorch >= 1.6
